@@ -18,8 +18,8 @@ export async function exportPortfolioPptx() {
   pres.author = PROFILE_DATA.name;
   pres.company = 'FOTONIC / Universitas Lampung';
 
-  // Presentation layout: 16:9 widescreen
-  pres.layout = 'LAYOUT_16x9';
+  // Layout 13.33x7.5 inci (koordinat slide dirancang untuk ukuran ini)
+  pres.layout = 'LAYOUT_WIDE';
 
   // Emerald Theme Color Constants
   const BG_COLOR = '04120B';

@@ -36,7 +36,7 @@ export function VisualModal({ item, onClose }: VisualModalProps) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-xl rounded-2xl bg-[#071f14] border border-emerald-900/60 p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-150">
+      <div className="relative w-full max-w-xl rounded-2xl bg-surface border border-emerald-900/60 p-6 shadow-2xl space-y-4 animate-pop-in">
         <div className="flex items-start justify-between gap-4">
           <div>
             <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400">
@@ -49,7 +49,7 @@ export function VisualModal({ item, onClose }: VisualModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-400 hover:text-emerald-400 hover:bg-[#04120b] transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-emerald-400 hover:bg-obsidian transition-colors cursor-pointer"
             aria-label="Tutup pratinjau visual"
           >
             <X className="w-4 h-4" />
@@ -61,19 +61,19 @@ export function VisualModal({ item, onClose }: VisualModalProps) {
         </p>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-          <div className="rounded-lg bg-[#04120b] border border-emerald-900/60 p-2.5">
+          <div className="rounded-lg bg-obsidian border border-emerald-900/60 p-2.5">
             <div className="text-[10px] font-mono text-zinc-500">FOCAL &amp; APERTURE</div>
             <div className="text-xs font-mono text-zinc-100 mt-0.5">{item.lens}</div>
           </div>
-          <div className="rounded-lg bg-[#04120b] border border-emerald-900/60 p-2.5">
+          <div className="rounded-lg bg-obsidian border border-emerald-900/60 p-2.5">
             <div className="text-[10px] font-mono text-zinc-500">SHUTTER SPEED</div>
             <div className="text-xs font-mono text-zinc-100 mt-0.5">{item.shutter}</div>
           </div>
-          <div className="rounded-lg bg-[#04120b] border border-emerald-900/60 p-2.5">
+          <div className="rounded-lg bg-obsidian border border-emerald-900/60 p-2.5">
             <div className="text-[10px] font-mono text-zinc-500">SENSITIVITY</div>
             <div className="text-xs font-mono text-emerald-400 mt-0.5">{item.iso}</div>
           </div>
-          <div className="rounded-lg bg-[#04120b] border border-emerald-900/60 p-2.5">
+          <div className="rounded-lg bg-obsidian border border-emerald-900/60 p-2.5">
             <div className="text-[10px] font-mono text-zinc-500">COLOR PROFILE</div>
             <div className="text-xs font-mono text-zinc-100 mt-0.5">{item.profile}</div>
           </div>

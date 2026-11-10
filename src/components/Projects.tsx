@@ -70,7 +70,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
             <div className="space-y-3.5">
               {/* Top bar: Icon + Status Indicator */}
               <div className="flex items-center justify-between gap-2">
-                <div className="w-9 h-9 rounded-lg bg-[#04120b] border border-emerald-900/60 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-obsidian border border-emerald-900/60 flex items-center justify-center">
                   {getIcon(project.id)}
                 </div>
                 <span
@@ -100,7 +100,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
                 {project.stack.map((tech, idx) => (
                   <span
                     key={idx}
-                    className={`px-2 py-0.5 text-[11px] font-mono rounded-md bg-[#04120b] border border-emerald-900/50 ${
+                    className={`px-2 py-0.5 text-[11px] font-mono rounded-md bg-obsidian border border-emerald-900/50 ${
                       idx === 0 ? 'text-emerald-300' : 'text-zinc-300'
                     }`}
                   >

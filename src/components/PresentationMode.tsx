@@ -25,7 +25,7 @@ import {
   Mail,
   Camera,
   Film,
-  Palette,
+  
   Terminal,
   Code2,
   Cpu,
@@ -161,7 +161,7 @@ export function PresentationMode({
       </div>
 
       {/* Main Slide Presentation Stage (16:9 Aspect Feel with Emerald Glow) */}
-      <div className="my-6 relative min-h-[480px] sm:min-h-[520px] rounded-2xl bg-[#071f14]/80 border border-emerald-900/50 p-6 sm:p-10 flex flex-col justify-center overflow-hidden shadow-2xl animate-slide-in">
+      <div className="my-6 relative min-h-[480px] sm:min-h-[520px] rounded-2xl bg-surface/80 border border-emerald-900/50 p-6 sm:p-10 flex flex-col justify-center overflow-hidden shadow-2xl animate-slide-in">
         <div className="ambient-glow pointer-events-none absolute inset-0 opacity-70" />
 
         {/* ====================================================
@@ -177,7 +177,7 @@ export function PresentationMode({
                 priority
                 className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#04120b] via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-60" />
             </div>
 
             <div className="space-y-4 text-center md:text-left flex-1">
@@ -228,7 +228,7 @@ export function PresentationMode({
               </h2>
             </div>
 
-            <div className="p-5 rounded-xl bg-[#04120b]/80 border border-emerald-900/50">
+            <div className="p-5 rounded-xl bg-obsidian/80 border border-emerald-900/50">
               <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
                 {PROFILE_DATA.bio}
               </p>
@@ -352,7 +352,7 @@ export function PresentationMode({
                   onClick={() => onSelectVisual(item)}
                   className="visual-card rounded-xl overflow-hidden bg-zinc-950 flex flex-col cursor-pointer group"
                 >
-                  <div className="relative aspect-[16/10] sm:aspect-[4/5] w-full overflow-hidden bg-[#04120b]">
+                  <div className="relative aspect-[16/10] sm:aspect-[4/5] w-full overflow-hidden bg-obsidian">
                     {getArtwork(item.id)}
                     <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-zinc-950/80 backdrop-blur-sm border border-emerald-900/60 text-[10px] font-mono text-emerald-300">
                       {item.category}
@@ -364,7 +364,7 @@ export function PresentationMode({
                       </div>
                     </div>
                   </div>
-                  <div className="p-3 bg-[#071f14]/80">
+                  <div className="p-3 bg-surface/80">
                     <h3 className="text-xs font-semibold text-zinc-100">{item.title}</h3>
                     <p className="text-[11px] text-zinc-400 mt-1 line-clamp-2">{item.shortDesc}</p>
                   </div>
@@ -390,7 +390,7 @@ export function PresentationMode({
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {SKILLS_DATA.map((cluster, idx) => (
-                <div key={idx} className="p-5 rounded-xl bg-[#04120b]/90 border border-emerald-900/50 space-y-4">
+                <div key={idx} className="p-5 rounded-xl bg-obsidian/90 border border-emerald-900/50 space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-semibold text-emerald-300 flex items-center gap-2">
                       {idx === 0 ? <Code2 className="w-4 h-4" /> : idx === 1 ? <Film className="w-4 h-4" /> : <Cpu className="w-4 h-4" />}
@@ -437,7 +437,7 @@ export function PresentationMode({
               ))}
             </div>
 
-            <div className="p-4 rounded-xl bg-[#04120b] border border-emerald-500/30 flex flex-wrap items-center justify-between gap-3">
+            <div className="p-4 rounded-xl bg-obsidian border border-emerald-500/30 flex flex-wrap items-center justify-between gap-3">
               <span className="text-xs text-zinc-300 font-medium">
                 Siap berkolaborasi untuk proyek rekayasa otomasi web &amp; produksi visual komersial.
               </span>

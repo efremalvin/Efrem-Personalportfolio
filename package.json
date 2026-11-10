@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "typecheck": "tsc --noEmit",
+    "validate:content": "node scripts/validate-content.mjs",
+    "fix": "npm run lint:fix",
+    "check": "npm run validate:content && npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {
     "lucide-react": "^1.71.0",

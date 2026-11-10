@@ -39,7 +39,7 @@ export function Skills() {
         {SKILLS_DATA.map((cluster, idx) => (
           <div
             key={idx}
-            className="rounded-xl bg-[#071f14]/65 border border-emerald-900/50 p-5 space-y-4"
+            className="rounded-xl bg-surface/65 border border-emerald-900/50 p-5 space-y-4"
           >
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-100 flex items-center gap-2">

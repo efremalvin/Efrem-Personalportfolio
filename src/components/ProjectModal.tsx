@@ -36,7 +36,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-lg rounded-2xl bg-[#071f14] border border-emerald-900/60 p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-150">
+      <div className="relative w-full max-w-lg rounded-2xl bg-surface border border-emerald-900/60 p-6 shadow-2xl space-y-4 animate-pop-in">
         <div className="flex items-start justify-between gap-4">
           <div>
             <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-400">
@@ -49,7 +49,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-400 hover:text-emerald-400 hover:bg-[#04120b] transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-emerald-400 hover:bg-obsidian transition-colors cursor-pointer"
             aria-label="Tutup modal"
           >
             <X className="w-4 h-4" />
@@ -60,7 +60,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           {project.longDesc}
         </p>
 
-        <div className="rounded-xl bg-[#04120b] border border-emerald-900/60 p-3.5 space-y-2">
+        <div className="rounded-xl bg-obsidian border border-emerald-900/60 p-3.5 space-y-2">
           <div className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider">
             Key Engineering Highlights
           </div>
@@ -81,7 +81,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#04120b] hover:bg-zinc-900 text-zinc-200 border border-emerald-900/60 transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-obsidian hover:bg-zinc-900 text-zinc-200 border border-emerald-900/60 transition-colors"
               >
                 <span>GitHub Repo</span>
                 <ExternalLink className="w-3 h-3 text-emerald-400" />

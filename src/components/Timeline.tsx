@@ -27,7 +27,7 @@ export function Timeline() {
         {TIMELINE_DATA.map((item, idx) => (
           <div key={idx} className="relative group">
             <span
-              className={`absolute -left-[29px] top-1.5 h-2.5 w-2.5 rounded-full ring-4 ring-[#04120b] transition-colors ${
+              className={`absolute -left-[29px] top-1.5 h-2.5 w-2.5 rounded-full ring-4 ring-obsidian transition-colors ${
                 idx === 0
                   ? 'bg-emerald-400 shadow-sm shadow-emerald-400'
                   : 'bg-zinc-700 group-hover:bg-emerald-400'

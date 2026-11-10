@@ -54,9 +54,9 @@ export const PROFILE_DATA = {
   bio: "Mahasiswa Pendidikan Teknologi Informasi Universitas Lampung yang menjembatani rekayasa perangkat lunak—meliputi otomasi Python, aplikasi web interaktif, dan pipeline pemrosesan media lokal—dengan eksekusi produksi visual komersial berstandar industri. Melalui FOTONIC (FremNett Project), saya merancang sistem alur kerja pascaproduksi yang presisi sekaligus menangani dokumentasi milestone akademik dan color grading video N-Log.",
   githubUsername: 'efremalvin',
   githubUrl: 'https://github.com/efremalvin',
-  email: 'efremalvin@gmail.com',
-  whatsappNumber: '6281234567890',
-  whatsappUrl: 'https://wa.me/6281234567890?text=Halo%20Efrem%2C%20saya%20melihat%20portofolio%20Anda%20dan%20ingin%20berdiskusi%20mengenai%20proyek.',
+  email: 'efremalbertalvin@gmail.com',
+  whatsappNumber: '6285783627177',
+  whatsappUrl: 'https://wa.me/6285783627177?text=Halo%20Efrem%2C%20saya%20melihat%20portofolio%20Anda%20dan%20ingin%20berdiskusi%20mengenai%20proyek.',
 };
 
 export const PROJECTS_DATA: Project[] = [

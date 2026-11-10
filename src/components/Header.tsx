@@ -17,8 +17,8 @@ export function Header({
   onDownloadPpt,
 }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-md bg-[#04120b]/85 border-b border-emerald-900/50 no-print">
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 h-15 flex items-center justify-between gap-2">
+    <header className="sticky top-0 z-40 backdrop-blur-md bg-obsidian/85 border-b border-emerald-900/50 no-print">
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-2">
         {/* Brand / Logo */}
         <a href="#top" className="flex items-center gap-2.5 group focus:outline-none">
           <span className="w-8 h-8 rounded-lg bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center font-mono text-xs font-bold text-emerald-400 group-hover:border-emerald-400 transition-colors shadow-sm shadow-emerald-950">

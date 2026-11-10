@@ -38,7 +38,7 @@ export function Hero({ onOpenCv, onShowToast }: HeroProps) {
             priority
             className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#04120b]/60 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 via-transparent to-transparent pointer-events-none" />
         </div>
 
         {/* Status Badge & Location Meta */}

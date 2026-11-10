@@ -37,7 +37,7 @@ export function CvModal({ isOpen, onClose }: CvModalProps) {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-[#071f14] border border-emerald-900/60 p-6 sm:p-8 shadow-2xl space-y-5 animate-in fade-in zoom-in-95 duration-150">
+      <div className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-surface border border-emerald-900/60 p-6 sm:p-8 shadow-2xl space-y-5 animate-pop-in">
         <div className="flex items-start justify-between gap-4 border-b border-emerald-900/50 pb-4">
           <div className="flex items-center gap-4">
             <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-emerald-500/50">
@@ -63,7 +63,7 @@ export function CvModal({ isOpen, onClose }: CvModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-400 hover:text-emerald-400 hover:bg-[#04120b] transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-emerald-400 hover:bg-obsidian transition-colors cursor-pointer"
             aria-label="Tutup pratinjau CV"
           >
             <X className="w-4 h-4" />
@@ -81,7 +81,7 @@ export function CvModal({ isOpen, onClose }: CvModalProps) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-            <div className="p-3.5 rounded-xl bg-[#04120b] border border-emerald-900/50 space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-obsidian border border-emerald-900/50 space-y-1.5">
               <div className="text-xs font-semibold text-emerald-300">Pendidikan &amp; Organisasi</div>
               <p className="text-xs text-zinc-400">
                 • <strong className="text-zinc-200">S1 Pendidikan Teknologi Informasi</strong> — Universitas Lampung (2023 – Sekarang)
@@ -93,7 +93,7 @@ export function CvModal({ isOpen, onClose }: CvModalProps) {
                 • <strong className="text-zinc-200">Founder &amp; Lead Media</strong> — FOTONIC / FremNett (2024 – Sekarang)
               </p>
             </div>
-            <div className="p-3.5 rounded-xl bg-[#04120b] border border-emerald-900/50 space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-obsidian border border-emerald-900/50 space-y-1.5">
               <div className="text-xs font-semibold text-emerald-300">Proyek Unggulan</div>
               <p className="text-xs text-zinc-400">
                 • <strong className="text-zinc-200">Fotonic Client Proofing Web</strong> (Python, Streamlit, GDrive API)
@@ -107,7 +107,7 @@ export function CvModal({ isOpen, onClose }: CvModalProps) {
             </div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-[#04120b] border border-emerald-900/50 space-y-1.5">
+          <div className="p-3.5 rounded-xl bg-obsidian border border-emerald-900/50 space-y-1.5">
             <div className="text-xs font-semibold text-emerald-300">Spesialisasi Teknis &amp; Visual</div>
             <p className="text-xs text-zinc-400">
               • <strong className="text-zinc-200">Software &amp; Web</strong>: Python, HTML/CSS, JavaScript/React, Streamlit, Git/GitHub, Cloud APIs

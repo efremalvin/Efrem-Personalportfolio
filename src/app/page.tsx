@@ -8,6 +8,7 @@ import { FotonicShowcase } from '@/components/FotonicShowcase';
 import { Skills } from '@/components/Skills';
 import { Timeline } from '@/components/Timeline';
 import { Footer } from '@/components/Footer';
+import { PrintCv } from '@/components/PrintCv';
 import { PresentationMode } from '@/components/PresentationMode';
 import { ProjectModal } from '@/components/ProjectModal';
 import { VisualModal } from '@/components/VisualModal';
@@ -42,6 +43,8 @@ export default function Home() {
 
   return (
     <>
+      <PrintCv />
+      <div id="app-root">
       {/* Subtle top ambient emerald light */}
       <div
         className="ambient-glow pointer-events-none fixed inset-x-0 top-0 h-[460px] z-0"
@@ -107,7 +110,7 @@ export default function Home() {
       {/* Toast Notification */}
       {toastMessage && (
         <div
-          className="fixed bottom-5 right-5 z-50 rounded-xl bg-[#071f14] border border-emerald-500/50 px-4 py-2.5 shadow-2xl flex items-center gap-2.5 text-xs text-zinc-100 no-print animate-in fade-in slide-in-from-bottom-2 duration-150"
+          className="fixed bottom-5 right-5 z-50 rounded-xl bg-surface border border-emerald-500/50 px-4 py-2.5 shadow-2xl flex items-center gap-2.5 text-xs text-zinc-100 no-print animate-pop-in"
           role="status"
           aria-live="polite"
         >
@@ -115,6 +118,7 @@ export default function Home() {
           <span>{toastMessage}</span>
         </div>
       )}
+      </div>
     </>
   );
 }

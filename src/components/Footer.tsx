@@ -1,13 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useSyncExternalStore } from 'react';
 import { PROFILE_DATA } from '@/data/portfolioData';
 
 export function Footer() {
-  const currentYear = 2026;
+  // Tahun dihitung di klien (aman untuk cacheComponents prerender)
+  const currentYear = useSyncExternalStore(
+    () => () => {},
+    () => new Date().getFullYear(),
+    () => 2026,
+  );
 
   return (
-    <footer className="border-t border-emerald-900/50 bg-[#030e08]">
+    <footer className="border-t border-emerald-900/50 bg-obsidian-deep">
       <div className="max-w-4xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
           <span className="font-medium text-zinc-300">
