@@ -14,7 +14,6 @@ import { ProjectModal } from '@/components/ProjectModal';
 import { VisualModal } from '@/components/VisualModal';
 import { CvModal } from '@/components/CvModal';
 import { Project, VisualShowcaseItem } from '@/data/portfolioData';
-import { exportPortfolioPptx } from '@/lib/exportPptx';
 
 export default function Home() {
   const [activeView, setActiveView] = useState<'document' | 'presentation'>('document');
@@ -28,17 +27,6 @@ export default function Home() {
     setTimeout(() => {
       setToastMessage(null);
     }, 2800);
-  };
-
-  const handleDownloadPpt = async () => {
-    try {
-      showToast('Menyiapkan berkas presentasi PowerPoint...');
-      await exportPortfolioPptx();
-      showToast('Berkas .pptx berhasil digenerate dan diunduh!');
-    } catch (err) {
-      console.error(err);
-      showToast('Gagal mengunduh berkas PPT. Silakan coba lagi.');
-    }
   };
 
   return (
@@ -55,8 +43,6 @@ export default function Home() {
       <Header
         activeView={activeView}
         onToggleView={(view) => setActiveView(view)}
-        onOpenCv={() => setIsCvOpen(true)}
-        onDownloadPpt={handleDownloadPpt}
       />
 
       {/* VIEW 1: DOKUMEN WEB MODERN */}

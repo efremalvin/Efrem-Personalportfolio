@@ -77,7 +77,7 @@ export function Hero({ onOpenCv, onShowToast }: HeroProps) {
       </p>
 
       {/* Quick Action Buttons */}
-      <div className="pt-1 flex flex-wrap items-center gap-2.5 no-print">
+      <div className="pt-1 grid grid-cols-2 sm:flex sm:flex-wrap items-stretch sm:items-center gap-2 sm:gap-2.5 no-print [&>*]:justify-center">
         {/* GitHub */}
         <a
           id="action-github"
@@ -87,7 +87,7 @@ export function Hero({ onOpenCv, onShowToast }: HeroProps) {
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-medium bg-zinc-100 text-zinc-950 hover:bg-emerald-400 hover:text-zinc-950 transition-all shadow-sm"
         >
           <GithubIcon className="w-4 h-4" />
-          <span>GitHub: {PROFILE_DATA.githubUsername}</span>
+          <span className="truncate">GitHub<span className="hidden sm:inline">: {PROFILE_DATA.githubUsername}</span></span>
           <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
         </a>
 

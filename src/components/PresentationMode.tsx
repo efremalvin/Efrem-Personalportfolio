@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import {
   PROFILE_DATA,
@@ -59,6 +59,20 @@ export function PresentationMode({
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : totalSlides - 1));
   };
 
+  const rootRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
+
+  // Fullscreen per-slide: Fullscreen API bila tersedia, fallback CSS (mis. iOS Safari)
+  const toggleFullscreen = useCallback(() => {
+    if (isFullscreen) {
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      setIsFullscreen(false);
+      return;
+    }
+    setIsFullscreen(true);
+    rootRef.current?.requestFullscreen?.().catch(() => {});
+  }, [isFullscreen]);
+
   // Keyboard navigation (ArrowLeft & ArrowRight)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -68,20 +82,48 @@ export function PresentationMode({
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         setCurrentSlide((prev) => (prev > 0 ? prev - 1 : totalSlides - 1));
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [totalSlides]);
+  }, [totalSlides, toggleFullscreen]);
 
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen().catch(() => {});
-      setIsFullscreen(false);
-    }
+  // Sinkronkan state saat user menekan Esc / keluar fullscreen dari browser
+  useEffect(() => {
+    const onChange = () => {
+      if (!document.fullscreenElement) setIsFullscreen(false);
+    };
+    document.addEventListener('fullscreenchange', onChange);
+    return () => document.removeEventListener('fullscreenchange', onChange);
+  }, []);
+
+  // Kunci scroll halaman & Esc untuk mode fullscreen fallback
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsFullscreen(false);
+    };
+    window.addEventListener('keydown', onEsc);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onEsc);
+    };
+  }, [isFullscreen]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) < 50) return;
+    if (dx < 0) nextSlide();
+    else prevSlide();
   };
 
   const handleDownloadPptx = async () => {
@@ -110,58 +152,68 @@ export function PresentationMode({
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-between max-w-5xl mx-auto px-4 sm:px-6 py-6 select-none">
+    <div
+      ref={rootRef}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+      className={`flex flex-col select-none ${
+        isFullscreen
+          ? 'fixed inset-0 z-[70] h-dvh w-full bg-obsidian px-4 sm:px-10 py-4 overflow-hidden'
+          : 'relative min-h-[calc(100dvh-4rem)] justify-between max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6'
+      }`}
+    >
       {/* Top Slide Header Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-emerald-900/40">
+      <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3 pb-3 sm:pb-4 border-b border-emerald-900/40 shrink-0">
         <div className="flex items-center gap-3">
           <span className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
             SLIDE {currentSlide + 1} / {totalSlides}
           </span>
           <span className="text-xs font-mono text-zinc-400 hidden sm:inline">
-            Gunakan panah keyboard (← / →) untuk navigasi
+            Panah ← / → untuk navigasi, F untuk layar penuh
           </span>
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Switch back to Document */}
-          <button
-            type="button"
-            onClick={onSwitchToDocument}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-emerald-900/40 hover:border-emerald-500/40 transition-all cursor-pointer"
-          >
-            <FileText className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Mode Dokumen</span>
-          </button>
-
-          {/* Fullscreen Toggle */}
+          {!isFullscreen && (
+            <>
+              <button
+                type="button"
+                onClick={onSwitchToDocument}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-emerald-900/40 hover:border-emerald-500/40 transition-all cursor-pointer"
+              >
+                <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Dokumen</span>
+              </button>
+              <button
+                type="button"
+                onClick={handleDownloadPptx}
+                disabled={isExporting}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 hover:bg-emerald-400 text-zinc-950 transition-all shadow-md cursor-pointer disabled:opacity-60"
+              >
+                {isExporting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                <span>{isExporting ? 'Membuat...' : 'PPT (.pptx)'}</span>
+              </button>
+            </>
+          )}
           <button
             type="button"
             onClick={toggleFullscreen}
-            className="p-1.5 rounded-lg text-zinc-400 hover:text-emerald-400 bg-zinc-900 border border-emerald-900/40 transition-colors cursor-pointer"
-            title="Layar Penuh"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-zinc-300 hover:text-emerald-400 bg-zinc-900 border border-emerald-900/40 transition-colors cursor-pointer"
+            title={isFullscreen ? 'Keluar layar penuh (Esc)' : 'Layar penuh (F)'}
           >
             {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-          </button>
-
-          {/* Download Real PPT (.pptx) */}
-          <button
-            type="button"
-            onClick={handleDownloadPptx}
-            disabled={isExporting}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-semibold transition-all shadow-md cursor-pointer disabled:opacity-60"
-          >
-            {isExporting ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
-            ) : (
-              <Download className="w-3.5 h-3.5" />
-            )}
-            <span>{isExporting ? 'Generating PPT...' : 'Download PPT (.pptx)'}</span>
+            <span>{isFullscreen ? 'Keluar' : 'Layar Penuh'}</span>
           </button>
         </div>
       </div>
 
       {/* Main Slide Presentation Stage (16:9 Aspect Feel with Emerald Glow) */}
-      <div className="my-6 relative min-h-[480px] sm:min-h-[520px] rounded-2xl bg-surface/80 border border-emerald-900/50 p-6 sm:p-10 flex flex-col justify-center overflow-hidden shadow-2xl animate-slide-in">
+      <div key={currentSlide}
+        className={`relative rounded-2xl bg-surface/80 border border-emerald-900/50 p-4 sm:p-10 flex flex-col justify-center shadow-2xl animate-slide-in ${
+          isFullscreen
+            ? 'flex-1 my-3 overflow-y-auto sm:text-[1.12em]'
+            : 'my-4 sm:my-6 min-h-[420px] sm:min-h-[520px] overflow-hidden'
+        }`}>
         <div className="ambient-glow pointer-events-none absolute inset-0 opacity-70" />
 
         {/* ====================================================
@@ -466,14 +518,14 @@ export function PresentationMode({
       </div>
 
       {/* Bottom Navigation Controls (Prev / Next & Slide Dots) */}
-      <div className="flex items-center justify-between gap-4 pt-4 border-t border-emerald-900/40">
+      <div className="flex items-center justify-between gap-2 sm:gap-4 pt-3 sm:pt-4 border-t border-emerald-900/40 shrink-0">
         <button
           type="button"
           onClick={prevSlide}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-emerald-900/50 hover:border-emerald-500/50 transition-all cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" />
-          <span>Slide Sebelumnya</span>
+          <span className="hidden sm:inline">Sebelumnya</span>
         </button>
 
         {/* Bullet indicators */}
@@ -498,7 +550,7 @@ export function PresentationMode({
           onClick={nextSlide}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 transition-all cursor-pointer"
         >
-          <span>Slide Berikutnya</span>
+          <span className="hidden sm:inline">Berikutnya</span>
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
