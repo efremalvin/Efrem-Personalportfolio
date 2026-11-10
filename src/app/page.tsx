@@ -8,12 +8,15 @@ import { FotonicShowcase } from '@/components/FotonicShowcase';
 import { Skills } from '@/components/Skills';
 import { Timeline } from '@/components/Timeline';
 import { Footer } from '@/components/Footer';
+import { PresentationMode } from '@/components/PresentationMode';
 import { ProjectModal } from '@/components/ProjectModal';
 import { VisualModal } from '@/components/VisualModal';
 import { CvModal } from '@/components/CvModal';
 import { Project, VisualShowcaseItem } from '@/data/portfolioData';
+import { exportPortfolioPptx } from '@/lib/exportPptx';
 
 export default function Home() {
+  const [activeView, setActiveView] = useState<'document' | 'presentation'>('document');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [activeVisual, setActiveVisual] = useState<VisualShowcaseItem | null>(null);
   const [isCvOpen, setIsCvOpen] = useState(false);
@@ -23,40 +26,69 @@ export default function Home() {
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage(null);
-    }, 2600);
+    }, 2800);
+  };
+
+  const handleDownloadPpt = async () => {
+    try {
+      showToast('Menyiapkan berkas presentasi PowerPoint...');
+      await exportPortfolioPptx();
+      showToast('Berkas .pptx berhasil digenerate dan diunduh!');
+    } catch (err) {
+      console.error(err);
+      showToast('Gagal mengunduh berkas PPT. Silakan coba lagi.');
+    }
   };
 
   return (
     <>
-      {/* Subtle top ambient light */}
+      {/* Subtle top ambient emerald light */}
       <div
-        className="ambient-glow pointer-events-none fixed inset-x-0 top-0 h-[420px] z-0"
+        className="ambient-glow pointer-events-none fixed inset-x-0 top-0 h-[460px] z-0"
         aria-hidden="true"
       />
 
-      {/* Top Header Navigation */}
-      <Header onOpenCv={() => setIsCvOpen(true)} />
+      {/* Top Header Navigation with Dual-View Switcher */}
+      <Header
+        activeView={activeView}
+        onToggleView={(view) => setActiveView(view)}
+        onOpenCv={() => setIsCvOpen(true)}
+        onDownloadPpt={handleDownloadPpt}
+      />
 
-      {/* Main Container */}
-      <main id="top" className="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 pt-12 pb-20 space-y-20">
-        <Hero
-          onOpenCv={() => setIsCvOpen(true)}
-          onShowToast={showToast}
-        />
+      {/* VIEW 1: DOKUMEN WEB MODERN */}
+      <div className={activeView === 'document' ? 'block' : 'hidden print-only-show'}>
+        <main id="top" className="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 pt-10 pb-20 space-y-20">
+          <Hero
+            onOpenCv={() => setIsCvOpen(true)}
+            onShowToast={showToast}
+          />
 
-        <Projects onSelectProject={(project) => setActiveProject(project)} />
+          <Projects onSelectProject={(project) => setActiveProject(project)} />
 
-        <FotonicShowcase onSelectVisual={(item) => setActiveVisual(item)} />
+          <FotonicShowcase onSelectVisual={(item) => setActiveVisual(item)} />
 
-        <Skills />
+          <Skills />
 
-        <Timeline />
-      </main>
+          <Timeline />
+        </main>
 
-      {/* Footer */}
-      <Footer />
+        <Footer />
+      </div>
 
-      {/* Modals */}
+      {/* VIEW 2: PRESENTASI PPT INTERAKTIF */}
+      {activeView === 'presentation' && (
+        <div className="relative z-10 no-print">
+          <PresentationMode
+            onSwitchToDocument={() => setActiveView('document')}
+            onSelectProject={(project) => setActiveProject(project)}
+            onSelectVisual={(item) => setActiveVisual(item)}
+            onShowToast={showToast}
+          />
+        </div>
+      )}
+
+      {/* Modals Accessible Across Both Modes */}
       <ProjectModal
         project={activeProject}
         onClose={() => setActiveProject(null)}
@@ -75,11 +107,11 @@ export default function Home() {
       {/* Toast Notification */}
       {toastMessage && (
         <div
-          className="fixed bottom-5 right-5 z-50 rounded-lg bg-zinc-900 border border-sky-500/40 px-4 py-2.5 shadow-xl flex items-center gap-2 text-xs text-zinc-100 no-print animate-in fade-in slide-in-from-bottom-2 duration-150"
+          className="fixed bottom-5 right-5 z-50 rounded-xl bg-[#071f14] border border-emerald-500/50 px-4 py-2.5 shadow-2xl flex items-center gap-2.5 text-xs text-zinc-100 no-print animate-in fade-in slide-in-from-bottom-2 duration-150"
           role="status"
           aria-live="polite"
         >
-          <span className="w-2 h-2 rounded-full bg-sky-400" />
+          <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 shadow-sm shadow-emerald-400" />
           <span>{toastMessage}</span>
         </div>
       )}

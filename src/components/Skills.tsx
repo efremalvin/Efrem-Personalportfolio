@@ -8,20 +8,20 @@ export function Skills() {
   const getClusterIcon = (iconName: SkillCluster['iconName']) => {
     switch (iconName) {
       case 'code':
-        return <Code2 className="w-4 h-4 text-sky-400" />;
+        return <Code2 className="w-4 h-4 text-emerald-400" />;
       case 'film':
-        return <Film className="w-4 h-4 text-cyan-400" />;
+        return <Film className="w-4 h-4 text-teal-400" />;
       case 'cpu':
       default:
-        return <Terminal className="w-4 h-4 text-sky-400" />;
+        return <Terminal className="w-4 h-4 text-emerald-300" />;
     }
   };
 
   return (
     <section id="skills" aria-labelledby="skills-heading" className="space-y-6 scroll-mt-20">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-zinc-800/60 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-emerald-900/40 pb-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-sky-400 mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-1">
             <span>03</span>
             <span>/</span>
             <span>Capabilities &amp; Ecosystem</span>
@@ -39,14 +39,14 @@ export function Skills() {
         {SKILLS_DATA.map((cluster, idx) => (
           <div
             key={idx}
-            className="rounded-xl bg-[#111723]/65 border border-zinc-800/60 p-5 space-y-4"
+            className="rounded-xl bg-[#071f14]/65 border border-emerald-900/50 p-5 space-y-4"
           >
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-zinc-100 flex items-center gap-2">
                 {getClusterIcon(cluster.iconName)}
                 <span>{cluster.category}</span>
               </h3>
-              <span className="text-[11px] font-mono text-zinc-500">{cluster.countLabel}</span>
+              <span className="text-[11px] font-mono text-emerald-400/80">{cluster.countLabel}</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {cluster.skills.map((skill, sIdx) => (

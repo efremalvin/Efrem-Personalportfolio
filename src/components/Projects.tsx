@@ -12,23 +12,23 @@ export function Projects({ onSelectProject }: ProjectsProps) {
   const getIcon = (id: string) => {
     switch (id) {
       case 'proofing':
-        return <ImageIcon className="w-4 h-4 text-sky-400" />;
+        return <ImageIcon className="w-4 h-4 text-emerald-400" />;
       case 'pipeline':
-        return <Terminal className="w-4 h-4 text-cyan-400" />;
+        return <Terminal className="w-4 h-4 text-teal-400" />;
       case 'luminaraw':
       default:
-        return <Cpu className="w-4 h-4 text-amber-400" />;
+        return <Cpu className="w-4 h-4 text-emerald-300" />;
     }
   };
 
   const getBadgeStyle = (statusType: Project['statusType']) => {
     switch (statusType) {
       case 'production':
-        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25';
+        return 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30';
       case 'active':
-        return 'bg-sky-500/10 text-sky-400 border-sky-500/25';
+        return 'bg-teal-500/10 text-teal-300 border-teal-500/30';
       case 'rnd':
-        return 'bg-amber-500/10 text-amber-300 border-amber-500/25';
+        return 'bg-emerald-600/15 text-emerald-200 border-emerald-400/30';
     }
   };
 
@@ -37,17 +37,17 @@ export function Projects({ onSelectProject }: ProjectsProps) {
       case 'production':
         return 'bg-emerald-400';
       case 'active':
-        return 'bg-sky-400';
+        return 'bg-teal-400';
       case 'rnd':
-        return 'bg-amber-400';
+        return 'bg-emerald-300';
     }
   };
 
   return (
     <section id="projects" aria-labelledby="projects-heading" className="space-y-6 scroll-mt-20">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-zinc-800/60 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-emerald-900/40 pb-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-sky-400 mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-1">
             <span>01</span>
             <span>/</span>
             <span>Engineering &amp; Automation</span>
@@ -70,7 +70,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
             <div className="space-y-3.5">
               {/* Top bar: Icon + Status Indicator */}
               <div className="flex items-center justify-between gap-2">
-                <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-[#04120b] border border-emerald-900/60 flex items-center justify-center">
                   {getIcon(project.id)}
                 </div>
                 <span
@@ -95,13 +95,13 @@ export function Projects({ onSelectProject }: ProjectsProps) {
             </div>
 
             {/* Bottom: Tech Pills & Action Link */}
-            <div className="pt-5 mt-5 border-t border-zinc-800/60 space-y-3.5">
+            <div className="pt-5 mt-5 border-t border-emerald-900/40 space-y-3.5">
               <div className="flex flex-wrap gap-1.5">
                 {project.stack.map((tech, idx) => (
                   <span
                     key={idx}
-                    className={`px-2 py-0.5 text-[11px] font-mono rounded-md bg-zinc-900 border border-zinc-800 ${
-                      idx === 0 ? 'text-sky-300' : 'text-zinc-300'
+                    className={`px-2 py-0.5 text-[11px] font-mono rounded-md bg-[#04120b] border border-emerald-900/50 ${
+                      idx === 0 ? 'text-emerald-300' : 'text-zinc-300'
                     }`}
                   >
                     {tech}
@@ -113,7 +113,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
                 <button
                   type="button"
                   onClick={() => onSelectProject(project)}
-                  className="inline-flex items-center gap-1 text-sky-400 hover:text-sky-300 font-medium transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-medium transition-colors cursor-pointer"
                 >
                   <span>Detail Arsitektur</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -124,7 +124,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
                     href={project.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-zinc-500 hover:text-zinc-300 font-mono inline-flex items-center gap-1 transition-colors"
+                    className="text-zinc-500 hover:text-emerald-400 font-mono inline-flex items-center gap-1 transition-colors"
                     aria-label={`Lihat repositori GitHub ${project.title}`}
                   >
                     <span>Repo</span>

@@ -50,6 +50,7 @@ export const PROFILE_DATA = {
   locationShort: 'Bandar Lampung, ID',
   educationAffiliation: 'Pendidikan Teknologi Informasi, Universitas Lampung (Angkatan 2023)',
   affiliationShort: "PTI Unila '23",
+  avatarUrl: '/profile.jpg',
   bio: "Mahasiswa Pendidikan Teknologi Informasi Universitas Lampung yang menjembatani rekayasa perangkat lunak—meliputi otomasi Python, aplikasi web interaktif, dan pipeline pemrosesan media lokal—dengan eksekusi produksi visual komersial berstandar industri. Melalui FOTONIC (FremNett Project), saya merancang sistem alur kerja pascaproduksi yang presisi sekaligus menangani dokumentasi milestone akademik dan color grading video N-Log.",
   githubUsername: 'efremalvin',
   githubUrl: 'https://github.com/efremalvin',
